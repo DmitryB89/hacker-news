@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+.nav {
+  height: 5rem;
+  background-color: #ff6600;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo {
+  width: 200px;
+  padding: 1rem 3rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.newsWrapper {
+  display: grid;
+  grid-template-columns:60% 15%  auto auto auto ;
+  list-style-type: none;
+  background-color: #ff6600;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.newsLine {
+  display: grid;
+  grid-template-columns:60% 15% auto  auto auto auto ;
+  list-style-type: none;
+  background-color: #ff6600;
+}
+table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: lightgreen;
+}
+
+th, td {
+  text-align: left;
+  padding: 1rem;
+
+}
+
+/*.newsLine {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  background-color: #ff6600;*/
+/*}*/
+/*.newsLine {*/
+/*  display: grid;*/
+/*  background-color: #ff6600;*/
+/*}*/
+
+.newsLineInfo {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  flex-direction: row;
+  font-size: 1rem;
 }

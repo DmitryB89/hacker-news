@@ -1,6 +1,17 @@
 import React from 'react';
 
-const gridTitle = ['title', 'published by', 'rating', 'comments', 'date'];
+type gridTitlesType = GridTitle[]
+type GridTitle = {
+    id:number
+    title:string
+}
+const gridTitle:gridTitlesType = [
+    {id:1, title:'title'},
+    {id:2, title:'published by'},
+    {id:3, title:'rating'},
+    {id:4, title:'comments'},
+    {id:5, title:'date'},
+];
 
 export const NewsTable = () => {
     return (
@@ -8,9 +19,10 @@ export const NewsTable = () => {
             <caption>
                 recent news
             </caption>
+            <tbody>
             <tr>
                 {
-                    gridTitle.map(title => <th>{title}</th>)
+                    gridTitle.map(title => <th key={title.id}>{title.title}</th>)
                 }
             </tr>
             <tr>
@@ -20,7 +32,7 @@ export const NewsTable = () => {
                 <td>324</td>
                 <td>25.01.2023</td>
             </tr>
-
+            </tbody>
         </table>
     )
 }

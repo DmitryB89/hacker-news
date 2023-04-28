@@ -29,7 +29,6 @@ body {
   max-width: 80%;
   margin: 0 auto;
 
-
   .newsList {
     list-style: none;
     counter-reset: item;
@@ -83,7 +82,7 @@ a {
   color: dodgerblue;
 }
 
-
+/* SINGLE NEWS STYLES */
 .singleNewsContainer {
   display: flex;
   flex-direction: column;
@@ -118,3 +117,13 @@ a {
   }
 }
 
+/* COMMENTS STYLES */
+
+
+.childrenComments {
+  list-style: none;
+  line-height: 1.5;
+  padding-bottom: 1rem;
+ 
+
+}

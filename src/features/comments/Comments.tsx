@@ -1,6 +1,7 @@
 import React, { FC, memo, useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../app/providers/store/store'
+import { useToggle } from '../../shared/hooks/useToggle'
 import { createMarkup } from '../../shared/utils/createMarkup'
 
 import { fetchChildrenComments, fetchComments } from './commentsSlice'
@@ -15,8 +16,13 @@ export const Comments: FC<CommentsPropsType> = memo(({ kids }) => {
   const childrenComments = useAppSelector(state => state.comments.childrenComments)
   const { descendants } = useAppSelector(state => state.singleNews.singleNews)
 
+  const [showComments, setShowComments] = useToggle(false)
+
   const getComments = (kids: number[]) => {
-    dispatch(fetchChildrenComments(kids))
+    setShowComments()
+    if (showComments) {
+      dispatch(fetchChildrenComments(kids))
+    }
   }
 
   useEffect(() => {
@@ -33,10 +39,9 @@ export const Comments: FC<CommentsPropsType> = memo(({ kids }) => {
           return (
             <li key={id}>
               <div dangerouslySetInnerHTML={createMarkup(text)} />
-              <div>{count}</div>
               {count && <button onClick={() => getComments(kids)}>show more comments</button>}
               {childrenComments && (
-                <ol>
+                <ul className={'childrenComments'}>
                   {childrenComments.map((comment: CommentsType) => {
                     return (
                       comment.parent === id && (
@@ -46,7 +51,7 @@ export const Comments: FC<CommentsPropsType> = memo(({ kids }) => {
                       )
                     )
                   })}
-                </ol>
+                </ul>
               )}
             </li>
           )

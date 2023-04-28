@@ -2,17 +2,17 @@ import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/providers/store/store";
 import {useNavigate} from "react-router-dom";
 import {fetchNews} from "./news_slice";
+import {dateHandler} from "../../shared/utils/dateHandler";
 
 
 export const NewsList = () => {
     const news = useAppSelector((state) => state.news.news)
+
     const navigate = useNavigate()
 
     const [update, setUpdate] = useState(false)
     const dispatch = useAppDispatch()
-    const refreshNewsList = () => {
-        setUpdate(true)
-    }
+
 
 
     useEffect(() => {
@@ -28,25 +28,25 @@ export const NewsList = () => {
         }
     }, [dispatch, news, update])
 
-    return <div>
+    return <div className={'newsListWrapper'}>
         <button onClick={() => setUpdate(true)}>refresh</button>
-        <ol>
-        {news.map((news, i: number) => (
-                <div className={'newsContainer'} key={news.id}>
-                    <li onClick={() => navigate(`news/${news.id}`)} value={i + 1}
-                        className={'newsTitle'}>{news.title}</li>
+        <ol className={'newsList'}>
+        {news.map(({by, descendants, id, score, time, title}, i: number) => (
+            <div  key={id}>
+                    <li onClick={() => navigate(`news/${id}`)} value={i + 1}
+                        className={'newsTitle'}>{title}</li>
                     <div className={"newsInfo"}>
                         <div className={'author'}>
-                            by {news.by}
+                            by {by}
                         </div>
                         <div>
-                            <b>score:</b> {news.score}
+                            <b>Score:</b> {score}
                         </div>
                         <div>
-                            <b>comments:</b> {news.descendants}
+                            <b>Comments:</b> {descendants}
                         </div>
                         <div>
-                            <b>date:</b> {news.time}
+                            <b>Date:</b> {dateHandler(time)}
                         </div>
                     </div>
                     <hr/>

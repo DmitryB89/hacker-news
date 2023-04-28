@@ -13,7 +13,7 @@ export type NewsType = {
     deleted: boolean
     type: NewsTitleType
     by: string
-    time: string
+    time: number
     text: string
     dead: boolean
     parent: string

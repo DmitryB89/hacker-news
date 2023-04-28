@@ -1,7 +1,4 @@
 import logo from '../assets/hacker_logo.png'
-import {FC} from "react";
-
-
 
 export const Navbar = () => {
     return <nav className={'navWrapper'}>

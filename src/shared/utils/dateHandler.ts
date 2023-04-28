@@ -6,6 +6,8 @@ export const dateHandler = (publicationTimeInMs: number): string => {
     const day = publicationDate.getDate().toString().padStart(2, '0')
     const hours = publicationDate.getHours().toString().padStart(2, '0')
     const minutes = publicationDate.getMinutes().toString().padStart(2, '0')
+    const seconds = publicationDate.getSeconds().toString().padStart(2, '0')
 
-    return `${year}-${month}-${day} ${hours}:${minutes}`
+
+    return `${year}-${month}-${day} | ${hours}:${minutes}:${seconds}`
 }

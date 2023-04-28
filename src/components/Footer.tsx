@@ -1,10 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export const Footer = () => {
-    return (
-        <footer style={{backgroundColor:"black"}}>
-            2023
-        </footer>
-    );
-};
-
+  return <footer style={{ backgroundColor: 'black' }}>2023</footer>
+}

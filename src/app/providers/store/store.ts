@@ -1,19 +1,19 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {newsReducer} from '../../../pages/NewsList/news_slice'
-import {commentsReducer} from "../../../features/comments/comments_slice";
-import {singleNews} from "../../../pages/SingleNews/singlenews_slice";
+import { configureStore } from '@reduxjs/toolkit'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+
+import { commentsReducer } from '../../../features/comments/commentsSlice'
+import { newsReducer } from '../../../pages/NewsList/newsSlice'
+import { singleNews } from '../../../pages/SingleNews/singleNewsSlice'
+
 export const store = configureStore({
-    reducer: {
-        news: newsReducer,
-        comments: commentsReducer,
-        singleNews: singleNews
-    }
+  reducer: {
+    news: newsReducer,
+    comments: commentsReducer,
+    singleNews: singleNews,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
-
-

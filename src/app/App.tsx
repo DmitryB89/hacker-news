@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import '../App.scss';
-import {Navbar} from '../components/Navbar';
+import React, { useEffect, useState } from 'react'
 
-import {Footer} from "../components/Footer";
-import {AppRouter} from "./providers/router/AppRouter";
+import '../App.scss'
+import { Footer } from '../components/Footer'
+import { Navbar } from '../components/Navbar'
 
+import { AppRouter } from './providers/router/AppRouter'
 
 function App() {
-
-
-    return (<>
-        <Navbar/>
-            <AppRouter/>
-        <Footer/>
-    </>);
+  return (
+    <>
+      <Navbar />
+      <AppRouter />
+      <Footer />
+    </>
+  )
 }
 
-export default App;
+export default App

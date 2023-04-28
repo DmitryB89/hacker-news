@@ -1,1 +1,1 @@
-export const createMarkup = (html: string) => ({ __html: html });
+export const createMarkup = (html: string) => ({ __html: html })

@@ -29,7 +29,7 @@ export const Comments: FC<CommentsPropsType> = memo(({kids}) => {
                     return (
                         <li key={id}>
                             <div dangerouslySetInnerHTML={createMarkup(text)}/>
-                            <div>{count}</div>
+                            {/*<div>{count}</div>*/}
                             {count && <button onClick={() => getComments(kids)}>show more comments</button>}
                             {childrenComments && (
                                 <ol>

@@ -1,35 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction,} from "@reduxjs/toolkit";
 import axios from "axios";
-
-const url = 'https://hacker-news.firebaseio.com/v0/item/'
-
-type InitialStateType = {
-    news_loading: boolean
-    news_error: string | null
-    news: NewsType[]
-}
-
-type NewsTitleType = "job" | "story" | "comment" | "poll" | "pollopt"
-
-export type NewsType = {
-    id: number
-    deleted: boolean
-    type: NewsTitleType
-    by: string
-    time: string
-    text: string
-    dead: boolean
-    parent: string
-    poll: string
-    kids: string
-    url: string
-    score: number
-    title: string
-    parts: string
-    descendants: number
-}
-
-type NewsResponseType = NewsType
+import {apiUrl} from "../../shared/constants/baseUrl";
+import {InitialStateType, NewsResponseType, NewsType} from "./NewsListTypes";
 
 const initialState: InitialStateType = {
     news_loading: false,
@@ -38,13 +10,13 @@ const initialState: InitialStateType = {
 }
 
 
-export const fetchNews = createAsyncThunk<NewsResponseType[], void, { rejectValue: string }>
+export const fetchNews = createAsyncThunk<NewsResponseType, void, { rejectValue: string }>
 ('news/fetchNews', async (_, thunkAPI) => {
         try {
-            const response = await axios.get<number[]>("https://hacker-news.firebaseio.com/v0/newstories.json")
+            const response = await axios.get<number[]>(`${apiUrl}/newstories.json`)
             const newsIds = response.data.slice(0, 100);
             const requests = newsIds.map((newsId: number) =>
-                axios.get<NewsResponseType>(`${url}/${newsId}.json`)
+                axios.get<NewsType>(`${apiUrl}/item/${newsId}.json`)
             );
             const responses = await Promise.all(requests);
             const newsList = responses.map(response => response.data);
@@ -71,9 +43,10 @@ export const news_slice = createSlice({
                 state.news = action.payload
 
             })
-            .addCase(fetchNews.rejected, (state) => {
+            .addCase(fetchNews.rejected, (state,action) => {
                 state.news_loading = false
-                state.news_error = 'Error occured'
+                state.news_error = action.error.message || null
+
             })
     }
 })

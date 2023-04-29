@@ -1,8 +1,9 @@
-import React, { FC, memo, useEffect } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../app/providers/store/store'
 import { useToggle } from '../../shared/hooks/useToggle'
 import { createMarkup } from '../../shared/utils/createMarkup'
+import s from '../comments/Comments.module.scss'
 
 import { fetchChildrenComments, fetchComments } from './commentsSlice'
 import { CommentsType } from './CommentsTypes'
@@ -15,23 +16,23 @@ export const Comments: FC<CommentsPropsType> = memo(({ kids }) => {
   const comments = useAppSelector(state => state.comments.comments)
   const childrenComments = useAppSelector(state => state.comments.childrenComments)
   const { descendants } = useAppSelector(state => state.singleNews.singleNews)
-
-  const [showComments, setShowComments] = useToggle(false)
+  const [isRefreshed, setIsRefreshed] = useState(false)
 
   const getComments = (kids: number[]) => {
-    setShowComments()
-    if (showComments) {
-      dispatch(fetchChildrenComments(kids))
-    }
+    dispatch(fetchChildrenComments(kids))
+  }
+  const refreshComments = () => {
+    setIsRefreshed(true)
   }
 
   useEffect(() => {
     dispatch(fetchComments(kids))
-  }, [dispatch, kids])
+    setIsRefreshed(false)
+  }, [dispatch, kids, isRefreshed])
 
   return (
     <div>
-      <b>Comments: </b> ({descendants})
+      <b>Comments: </b> ({descendants})<button onClick={refreshComments}>refresh</button>
       <ul>
         {comments.map(({ text, id, kids }: CommentsType) => {
           const count = kids ? kids.length : ''
@@ -41,7 +42,7 @@ export const Comments: FC<CommentsPropsType> = memo(({ kids }) => {
               <div dangerouslySetInnerHTML={createMarkup(text)} />
               {count && <button onClick={() => getComments(kids)}>show more comments</button>}
               {childrenComments && (
-                <ul className={'childrenComments'}>
+                <ul className={s.childrenComments}>
                   {childrenComments.map((comment: CommentsType) => {
                     return (
                       comment.parent === id && (

@@ -1,0 +1,53 @@
+.newsListWrapper {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  margin: 0 auto;
+
+  button {
+    align-self: flex-end;
+    margin-top: 2rem;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .newsList {
+    list-style: none;
+    counter-reset: item;
+    text-indent: -1.6rem;
+    margin-left: 1.6rem;
+
+    li {
+      counter-increment: item;
+      margin-bottom: 5px;
+
+      &:before {
+        margin-right: 1.4rem;
+        font-size: 1.2rem;
+        content: counter(item);
+        color: lightgrey;
+        text-align: left;
+        display: inline-block;
+      }
+    }
+  }
+
+  .newsTitle {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.7rem;
+    padding-top: 2rem;
+    cursor: pointer;
+  }
+
+  .newsInfo {
+    margin-left: 3rem;
+
+    .author {
+      font-size: 1.1rem;
+      padding-bottom: 0.5rem;
+      color: dodgerblue;
+    }
+  }
+
+}

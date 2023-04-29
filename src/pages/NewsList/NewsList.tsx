@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/providers/store/store'
 import { dateHandler } from '../../shared/utils/dateHandler'
+import s from '../NewsList/NewsList.module.scss'
 
 import { fetchNews } from './newsSlice'
 
@@ -12,13 +13,17 @@ export const NewsList = () => {
 
   const navigate = useNavigate()
 
-  const [update, setUpdate] = useState(false)
   const dispatch = useAppDispatch()
+  const [isRefreshed, setIsRefreshed] = useState(false)
+
+  const refreshNews = () => {
+    setIsRefreshed(true)
+  }
 
   useEffect(() => {
-    if (!news.length || update) {
+    if (!news.length || isRefreshed) {
       dispatch(fetchNews())
-      setUpdate(false)
+      setIsRefreshed(false)
     }
     const interval = setInterval(() => {
       dispatch(fetchNews())
@@ -27,19 +32,19 @@ export const NewsList = () => {
     return () => {
       clearInterval(interval)
     }
-  }, [dispatch, news, update])
+  }, [dispatch, news, isRefreshed])
 
   return (
-    <div className={'newsListWrapper'}>
-      <button onClick={() => setUpdate(true)}>refresh</button>
-      <ol className={'newsList'}>
+    <div className={s.newsListWrapper}>
+      <button onClick={refreshNews}>Refresh news list</button>
+      <ol className={s.newsList}>
         {news.map(({ by, descendants, id, score, time, title }, i: number) => (
           <div key={id}>
-            <li onClick={() => navigate(`news/${id}`)} value={i + 1} className={'newsTitle'}>
+            <li onClick={() => navigate(`news/${id}`)} value={i + 1} className={s.newsTitle}>
               {title}
             </li>
-            <div className={'newsInfo'}>
-              <div className={'author'}>by {by}</div>
+            <div className={s.newsInfo}>
+              <div className={s.author}>by {by}</div>
               <div>
                 <b>Score:</b> {score}
               </div>

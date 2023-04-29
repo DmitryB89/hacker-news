@@ -8,6 +8,7 @@ import arrow from '../../assets/arrow_back.svg'
 import { Comments } from '../../features/comments/Comments'
 import { dateHandler } from '../../shared/utils/dateHandler'
 
+import s from './SingleNews.module.scss'
 import { fetchSingleNews } from './singleNewsSlice'
 
 export const SingleNews = () => {
@@ -23,14 +24,14 @@ export const SingleNews = () => {
   }, [id, dispatch])
 
   return (
-    <div className={'singleNewsContainer'}>
-      <div className={'buttonBloc'} onClick={() => navigate(-1)}>
-        <img src={arrow} alt="arrow" className={'arrow'} />
+    <div className={s.singleNewsContainer}>
+      <div className={s.buttonBlock} onClick={() => navigate(-1)}>
+        <img src={arrow} alt="arrow" />
         <span>back to news</span>
       </div>
-      <div className={'singleNewsData'}>
+      <div className={s.singleNewsData}>
         <h2>{title}</h2>
-        <div className={'author'}>by {by}</div>
+        <div className={s.author}>by {by}</div>
         <NavLink to={url}>{url}</NavLink>
         <div>
           <div>
